@@ -1,8 +1,11 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { TamaguiProvider } from 'tamagui';
 import config from '../tamagui.config';
+
+const queryClient = new QueryClient();
 
 export default function Layout() {
   const [loaded] = useFonts({
@@ -22,7 +25,9 @@ export default function Layout() {
 
   return (
     <TamaguiProvider config={config}>
-      <Stack />
+      <QueryClientProvider client={queryClient}>
+        <Stack />
+      </QueryClientProvider>
     </TamaguiProvider>
   );
 }

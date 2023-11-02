@@ -1,4 +1,5 @@
 import { searchCitiesByName } from '@/api/cities-api';
+import { cityStore } from '@/store/CityStore';
 import { CitySearchResult } from '@/types/cities';
 import { useQuery } from '@tanstack/react-query';
 import { Stack, router } from 'expo-router';
@@ -11,7 +12,7 @@ import { Input, ScrollView, SizableText, View, YStack } from 'tamagui';
 export default function Page() {
   const [query, setQuery] = React.useState('');
 
-  const { data, isLoading, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ['search', query],
     queryFn: () => searchCitiesByName(query),
     placeholderData: (data) => data,
@@ -20,7 +21,7 @@ export default function Page() {
   const cities = data?._embedded['city:search-results'];
 
   const onCitySelected = (city: CitySearchResult) => {
-    console.log(city);
+    cityStore.setCity(city);
     router.back();
   };
 

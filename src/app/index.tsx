@@ -1,14 +1,19 @@
 import { getForecast } from '@/api/weather-api';
 import { WeatherDayCard } from '@/components/WeatherDayCard';
+import { cityStore } from '@/store/CityStore';
 import { useQuery } from '@tanstack/react-query';
 import { Link, Stack } from 'expo-router';
+import { observer } from 'mobx-react-lite';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, H2, ScrollView, Text, View, YStack } from 'tamagui';
 
-export default function Page() {
-  const { data, error } = useQuery({
-    queryKey: ['currentWeather', { city: 'London' }],
-    queryFn: () => getForecast({ city: 'London' }),
+const Page = observer(() => {
+  const city = cityStore.city;
+
+  const { data } = useQuery({
+    queryKey: ['currentWeather', { city }],
+    queryFn: () => getForecast({ city }),
+    placeholderData: (data) => data,
   });
 
   return (
@@ -62,4 +67,6 @@ export default function Page() {
       </View>
     </YStack>
   );
-}
+});
+
+export default Page;

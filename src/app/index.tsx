@@ -12,8 +12,9 @@ const Page = observer(() => {
 
   const { data } = useQuery({
     queryKey: ['currentWeather', { city }],
-    queryFn: () => getForecast({ city }),
+    queryFn: () => getForecast({ city: city! }),
     placeholderData: (data) => data,
+    enabled: !!city,
   });
 
   return (
@@ -61,7 +62,9 @@ const Page = observer(() => {
             <Link href='/search' asChild>
               <Button>Search city</Button>
             </Link>
-            <Button>Show my current location</Button>
+            <Button onPress={() => cityStore.setUserCurrentLocation()}>
+              Show my current location
+            </Button>
           </YStack>
         </SafeAreaView>
       </View>

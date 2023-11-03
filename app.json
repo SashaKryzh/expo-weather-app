@@ -28,6 +28,14 @@
       "tsconfigPaths": true
     },
     "scheme": "your-app-scheme",
-    "plugins": ["expo-router"]
+    "plugins": [
+      "expo-router",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
+    ]
   }
 }

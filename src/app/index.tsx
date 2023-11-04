@@ -3,9 +3,19 @@ import { WeatherDayCard } from '@/components/WeatherDayCard';
 import { cityStore } from '@/store/CityStore';
 import { useQuery } from '@tanstack/react-query';
 import { Link, Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import { observer } from 'mobx-react-lite';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, H2, ScrollView, Text, View, YStack } from 'tamagui';
+import {
+  Button,
+  H2,
+  ScrollView,
+  SizableText,
+  Text,
+  View,
+  YStack,
+} from 'tamagui';
 
 const Page = observer(() => {
   const city = cityStore.city;
@@ -19,10 +29,16 @@ const Page = observer(() => {
 
   return (
     <YStack fullscreen backgroundColor={'$blue3Dark'}>
+      <StatusBar style='light' />
       <Stack.Screen
         options={{
           title: data?.location.name,
-          navigationBarColor: '$blue3Dark',
+          headerTitleStyle: {
+            color: 'white',
+          },
+          headerStyle: {
+            backgroundColor: 'black',
+          },
         }}
       />
       <YStack flex={1} padding={5} alignItems='center'>
@@ -60,11 +76,26 @@ const Page = observer(() => {
         <SafeAreaView edges={['bottom']}>
           <YStack padding='$4' space='$2'>
             <Link href='/search' asChild>
-              <Button>Search city</Button>
+              <Button
+                bg={'$blue10'}
+                pressStyle={{ bg: '$blue8Dark', borderWidth: 0 }}
+                color={'white'}
+              >
+                Search city
+              </Button>
             </Link>
-            <Button onPress={() => cityStore.setUserCurrentLocation()}>
-              Show my current location
-            </Button>
+            <TouchableOpacity
+              onPress={() => cityStore.setUserCurrentLocation()}
+            >
+              <SizableText
+                paddingVertical={'$2'}
+                color={'$blue10'}
+                borderWidth={0}
+                textAlign='center'
+              >
+                Current location
+              </SizableText>
+            </TouchableOpacity>
           </YStack>
         </SafeAreaView>
       </View>

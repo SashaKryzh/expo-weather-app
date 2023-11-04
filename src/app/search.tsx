@@ -3,6 +3,7 @@ import { cityStore } from '@/store/CityStore';
 import { CitySearchResult } from '@/types/cities';
 import { useQuery } from '@tanstack/react-query';
 import { Stack, router } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -26,21 +27,33 @@ export default function Page() {
   };
 
   return (
-    <YStack flex={1}>
-      <ScrollView padding={4}>
-        <Stack.Screen
-          options={{
-            title: 'Search',
-            headerBackTitle: 'Weather',
-          }}
-        />
+    <YStack fullscreen bg={'$blue6Dark'}>
+      <StatusBar style='light' />
+      <Stack.Screen
+        options={{
+          title: 'Search',
+          headerBackTitle: 'Weather',
+          headerTitleStyle: {
+            color: 'white',
+          },
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+        }}
+      />
+      <ScrollView padding={4} bg={'$blue6Dark'}>
         {cities &&
           cities.map((city, index) => (
             <TouchableOpacity
               key={city.matching_full_name + index}
               onPress={() => onCitySelected(city)}
+              style={{ backgroundColor: '' }}
             >
-              <SizableText paddingHorizontal='$3' paddingVertical='$2'>
+              <SizableText
+                paddingHorizontal='$3'
+                paddingVertical='$2'
+                color={'white'}
+              >
                 {city.matching_full_name}
               </SizableText>
             </TouchableOpacity>
@@ -50,12 +63,16 @@ export default function Page() {
         keyboardVerticalOffset={Platform.OS === 'ios' ? 65 : 0}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View padding={'$3'} bc={'$gray1'}>
+        <View padding={'$3'} bc={'$blue3Dark'}>
           <SafeAreaView edges={['bottom']}>
             <Input
               placeholder='Search'
               value={query}
               onChangeText={(text) => setQuery(text)}
+              backgroundColor={'$blue5Dark'}
+              borderWidth={0}
+              col={'white'}
+              keyboardAppearance='dark'
               autoFocus
             />
           </SafeAreaView>

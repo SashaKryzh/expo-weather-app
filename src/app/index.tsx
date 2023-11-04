@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { observer } from 'mobx-react-lite';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,
@@ -41,7 +41,7 @@ const Page = observer(() => {
           },
         }}
       />
-      <YStack flex={1} padding={5} alignItems='center'>
+      <YStack flex={1}>
         <YStack flex={1} justifyContent='center' alignItems='center'>
           {data && (
             <Text fontSize={'$16'} color={'white'}>
@@ -50,14 +50,14 @@ const Page = observer(() => {
           )}
           <H2 color={'white'}>{data?.current.condition.text}</H2>
         </YStack>
+
         <ScrollView
-          flexGrow={0}
-          minWidth={'100%'}
           horizontal
+          flexGrow={0}
           showsHorizontalScrollIndicator={false}
           space='$4'
           paddingHorizontal={'$3'}
-          paddingVertical={'$2'}
+          paddingVertical={'$3'}
         >
           {data &&
             data.forecast.forecastday

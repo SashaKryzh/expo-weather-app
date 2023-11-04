@@ -33,6 +33,7 @@ export default function Page() {
         options={{
           title: 'Search',
           headerBackTitle: 'Weather',
+          headerTintColor: 'white',
           headerTitleStyle: {
             color: 'white',
           },

@@ -10,9 +10,9 @@ export const WeatherDayCard: React.FC<WeatherDayCardProps> = (props) => {
   return (
     <View
       position='relative'
-      borderWidth
       borderColor={'white'}
       borderRadius={'$5'}
+      borderWidth={1}
     >
       <View
         position='absolute'
